@@ -11,7 +11,12 @@ public class Game {
     JPanel startButtonPanel;
     JPanel mainTextPanel;
     JPanel choiceButtonPanel;
+    JPanel playerPanel;
     JLabel titleNameLabel;
+    JLabel hpLabel;
+    JLabel hpLabelNumber;
+    JLabel weaponLabel;
+    JLabel weaponLabelNumber;
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 40);
     JButton starButton;
@@ -110,6 +115,15 @@ public class Game {
         choice4.setFont(normalFont);
         choiceButtonPanel.add(choice4);
 
+        playerPanel= new JPanel();
+        playerPanel.setBounds(100, 15, 600, 50);
+        playerPanel.setBackground(Color.blue);
+        playerPanel.setLayout(new GridLayout(1,4));
+        con.add(playerPanel);
+        hpLabel = new JLabel("HP: ");
+        hpLabel.setFont(normalFont);
+        hpLabel.setForeground(Color.white);
+        playerPanel.add(hpLabel);
     }
 
     public class TitleScreenHandler implements ActionListener{
