@@ -68,7 +68,7 @@ public class Game {
 
         mainTextPanel = new JPanel();
         mainTextPanel.setBounds(100, 100, 600, 250);
-        mainTextPanel.setBackground(Color.blue);
+        mainTextPanel.setBackground(Color.black);
         con.add(mainTextPanel);
 
         mainTextArea = new JTextArea("Placeholder for mainTextArea");
@@ -81,7 +81,7 @@ public class Game {
 
         choiceButtonPanel = new JPanel();
         choiceButtonPanel.setBounds(250, 350, 300, 150);
-        choiceButtonPanel.setBackground(Color.red);
+        choiceButtonPanel.setBackground(Color.black);
         //Hogy egymás alatt legyenek a választási lehetőségek.
         choiceButtonPanel.setLayout(new GridLayout(4,1));
         con.add(choiceButtonPanel);
