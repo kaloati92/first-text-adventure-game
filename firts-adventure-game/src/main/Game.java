@@ -28,7 +28,8 @@ public class Game {
     TitleScreenHandler titleScreenHandler = new TitleScreenHandler();
     int playerHp;
     String weapon;
-
+    String position;
+    ChoiceHandler choiceHandler = new ChoiceHandler();
 
     public static void main(String[] args) {
         new Game();
@@ -102,6 +103,8 @@ public class Game {
         choice1.setForeground(Color.white);
         choice1.setFont(normalFont);
         choice1.setFocusPainted(false);
+        choice1.addActionListener(choiceHandler);
+        choice1.setActionCommand("c1");
         choiceButtonPanel.add(choice1);
 
         choice2 = new JButton("choice2");
@@ -109,6 +112,8 @@ public class Game {
         choice2.setForeground(Color.white);
         choice2.setFont(normalFont);
         choice2.setFocusPainted(false);
+        choice2.addActionListener(choiceHandler);
+        choice2.setActionCommand("c2");
         choiceButtonPanel.add(choice2);
 
         choice3 = new JButton("choice3");
@@ -116,6 +121,8 @@ public class Game {
         choice3.setForeground(Color.white);
         choice3.setFont(normalFont);
         choice3.setFocusPainted(false);
+        choice3.addActionListener(choiceHandler);
+        choice3.setActionCommand("c3");
         choiceButtonPanel.add(choice3);
 
         choice4 = new JButton("choice4");
@@ -123,6 +130,8 @@ public class Game {
         choice4.setForeground(Color.white);
         choice4.setFont(normalFont);
         choice4.setFocusPainted(false);
+        choice4.addActionListener(choiceHandler);
+        choice4.setActionCommand("c4");
         choiceButtonPanel.add(choice4);
 
         playerPanel = new JPanel();
@@ -161,12 +170,66 @@ public class Game {
         hpLabelNumber.setText("" + playerHp);
     }
 
+    public void townGate() {
+        position = "townGate";
+
+        mainTextArea.setText("You are at the gate of the town. \nA guard standing in front of you. \n\nWhat do you do?");
+
+        choice1.setText("Talk to the guard.");
+        choice2.setText("Attack the guard.");
+        choice3.setText("Leave.");
+        choice4.setText("");
+    }
+
+    public void talkGuard() {
+        position = "talkGuard";
+
+        mainTextArea.setText("Guard: Hello stranger. I have never seen your face. I'm sorry but we cannot let a stranger enter our town.");
+        choice1.setText(">");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
     public class TitleScreenHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
             createGameScreen();
 
+        }
+    }
+
+    public class ChoiceHandler implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            String yourChoice = e.getActionCommand();
+
+            switch (position) {
+                case "townGate":
+                    switch (yourChoice) {
+                        case "c1":
+                            talkGuard();
+                            break;
+                        case "c2":
+
+                            break;
+                        case "c3":
+
+                            break;
+                        case "c4":
+
+                            break;
+                    }
+                    break;
+                case "talkGuard":
+                    switch (yourChoice) {
+                        case "c1":
+                            townGate();
+                            break;
+                    }
+            }
         }
     }
 }
