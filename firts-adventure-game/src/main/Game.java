@@ -16,7 +16,7 @@ public class Game {
     JLabel hpLabel;
     JLabel hpLabelNumber;
     JLabel weaponLabel;
-    JLabel weaponLabelNumber;
+    JLabel weaponLabelName;
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 40);
     JButton starButton;
@@ -26,6 +26,9 @@ public class Game {
     JButton choice4;
     JTextArea mainTextArea;
     TitleScreenHandler titleScreenHandler = new TitleScreenHandler();
+    int playerHp;
+    String weapon;
+
 
     public static void main(String[] args) {
         new Game();
@@ -59,6 +62,9 @@ public class Game {
         //Ez csiálja a startból a creategamescreen-t.
         starButton.addActionListener(titleScreenHandler);
 
+        //a kijelölés eltűnik mikor nem vagy rajta egérrel.
+        starButton.setFocusPainted(false);
+
         titleNamePanel.add(titleNameLabel);
         startButtonPanel.add(starButton);
 
@@ -88,45 +94,74 @@ public class Game {
         choiceButtonPanel.setBounds(250, 350, 300, 150);
         choiceButtonPanel.setBackground(Color.black);
         //Hogy egymás alatt legyenek a választási lehetőségek.
-        choiceButtonPanel.setLayout(new GridLayout(4,1));
+        choiceButtonPanel.setLayout(new GridLayout(4, 1));
         con.add(choiceButtonPanel);
 
         choice1 = new JButton("choice1");
         choice1.setBackground(Color.black);
         choice1.setForeground(Color.white);
         choice1.setFont(normalFont);
+        choice1.setFocusPainted(false);
         choiceButtonPanel.add(choice1);
 
         choice2 = new JButton("choice2");
         choice2.setBackground(Color.black);
         choice2.setForeground(Color.white);
         choice2.setFont(normalFont);
+        choice2.setFocusPainted(false);
         choiceButtonPanel.add(choice2);
 
         choice3 = new JButton("choice3");
         choice3.setBackground(Color.black);
         choice3.setForeground(Color.white);
         choice3.setFont(normalFont);
+        choice3.setFocusPainted(false);
         choiceButtonPanel.add(choice3);
 
         choice4 = new JButton("choice4");
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.white);
         choice4.setFont(normalFont);
+        choice4.setFocusPainted(false);
         choiceButtonPanel.add(choice4);
 
-        playerPanel= new JPanel();
+        playerPanel = new JPanel();
         playerPanel.setBounds(100, 15, 600, 50);
-        playerPanel.setBackground(Color.blue);
-        playerPanel.setLayout(new GridLayout(1,4));
+        playerPanel.setBackground(Color.black);
+        playerPanel.setLayout(new GridLayout(1, 4));
         con.add(playerPanel);
-        hpLabel = new JLabel("HP: ");
+
+        hpLabel = new JLabel("HP:");
         hpLabel.setFont(normalFont);
         hpLabel.setForeground(Color.white);
         playerPanel.add(hpLabel);
+
+        hpLabelNumber = new JLabel();
+        hpLabelNumber.setFont(normalFont);
+        hpLabelNumber.setForeground(Color.white);
+        playerPanel.add(hpLabelNumber);
+
+        weaponLabel = new JLabel("Weapon:");
+        weaponLabel.setFont(normalFont);
+        weaponLabel.setForeground(Color.white);
+        playerPanel.add(weaponLabel);
+
+        weaponLabelName = new JLabel();
+        weaponLabelName.setFont(normalFont);
+        weaponLabelName.setForeground(Color.white);
+        playerPanel.add(weaponLabelName);
+
+        playerSetup();
     }
 
-    public class TitleScreenHandler implements ActionListener{
+    public void playerSetup() {
+        playerHp = 15;
+        weapon = "Knife";
+        weaponLabelName.setText(weapon);
+        hpLabelNumber.setText("" + playerHp);
+    }
+
+    public class TitleScreenHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
 
