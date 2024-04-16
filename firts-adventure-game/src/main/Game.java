@@ -27,6 +27,7 @@ public class Game {
     JTextArea mainTextArea;
     TitleScreenHandler titleScreenHandler = new TitleScreenHandler();
     int playerHp;
+    int monsterHp;
     String weapon;
     String position;
     ChoiceHandler choiceHandler = new ChoiceHandler();
@@ -161,13 +162,19 @@ public class Game {
         playerPanel.add(weaponLabelName);
 
         playerSetup();
+
+        window.revalidate();
+        window.repaint();
     }
 
     public void playerSetup() {
         playerHp = 15;
+        monsterHp = 20;
         weapon = "Knife";
         weaponLabelName.setText(weapon);
         hpLabelNumber.setText("" + playerHp);
+
+        townGate();
     }
 
     public void townGate() {
@@ -187,6 +194,74 @@ public class Game {
         mainTextArea.setText("Guard: Hello stranger. I have never seen your face. I'm sorry but we cannot let a stranger enter our town.");
         choice1.setText(">");
         choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void attackGuard() {
+        position = "attackGuard";
+
+        mainTextArea.setText("Guard: Hey don't be stupid!\n\nThe guard fought back and hit you hard\n(You receive 3 damage)");
+        playerHp = playerHp - 3;
+        hpLabelNumber.setText("" + playerHp);
+
+
+        choice1.setText(">");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void crossRoad() {
+        position = "crossRoads";
+        mainTextArea.setText("you re at a crossroad.\nIf you go south, you will go back to the town.");
+
+        choice1.setText("Go North");
+        choice2.setText("Go East");
+        choice3.setText("Go West");
+        choice4.setText("Go South");
+    }
+
+    public void north() {
+        position = "north";
+        mainTextArea.setText("There is a river.\nYou drink the water and rest at the riverside.\n\n(Your HP is recovered by 2)");
+        playerHp = playerHp + 2;
+        hpLabelNumber.setText("" + playerHp);
+
+        choice1.setText("Go South");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void east() {
+        position = "east";
+        mainTextArea.setText("You walk into a forest and found a Long Sword.\n\n(You obtained a Long Sword)");
+        weapon = "Long Sword";
+        weaponLabelName.setText(weapon);
+
+        choice1.setText("Go West");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void west() {
+        position = "west";
+        mainTextArea.setText("You encounter a goblin!");
+
+        choice1.setText("Fight!");
+        choice2.setText("Run!");
+        choice3.setText("");
+        choice4.setText("");
+    }
+
+    public void fight(){
+        position = "fight";
+        mainTextArea.setText("MonsterHp" + monsterHp + "\n\nWhat do you do?");
+
+        choice1.setText("Attack");
+        choice2.setText("Run!");
         choice3.setText("");
         choice4.setText("");
     }
@@ -213,10 +288,10 @@ public class Game {
                             talkGuard();
                             break;
                         case "c2":
-
+                            attackGuard();
                             break;
                         case "c3":
-
+                            crossRoad();
                             break;
                         case "c4":
 
@@ -225,8 +300,56 @@ public class Game {
                     break;
                 case "talkGuard":
                     switch (yourChoice) {
+                        //vissza az előző helyre
                         case "c1":
                             townGate();
+                            break;
+                    }
+                    break;
+                case "attackGuard":
+                    switch (yourChoice) {
+                        case "c1":
+                            townGate();
+                            break;
+                    }
+                    break;
+                case "crossRoads":
+                    switch (yourChoice) {
+                        case "c1":
+                            north();
+                            break;
+                        case "c2":
+                            east();
+                            break;
+                        case "c3":
+                            west();
+                            break;
+                        case "c4":
+                            townGate();
+                            break;
+                    }
+                    break;
+                case "north":
+                    switch (yourChoice) {
+                        case "c1":
+                            crossRoad();
+                            break;
+                    }
+                    break;
+                case "east":
+                    switch (yourChoice) {
+                        case "c1":
+                            crossRoad();
+                            break;
+                    }
+                    break;
+                case "west":
+                    switch (yourChoice){
+                        case "c1":
+
+                            break;
+                        case "c2":
+                            crossRoad();
                             break;
                     }
             }
