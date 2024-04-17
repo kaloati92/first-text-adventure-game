@@ -19,6 +19,7 @@ public class Game {
 
     public Game() {
         ui.createUI(choiceHandler);
+        story.defaultSetup();
         visibilityManager.showTitleScreen();
     }
 

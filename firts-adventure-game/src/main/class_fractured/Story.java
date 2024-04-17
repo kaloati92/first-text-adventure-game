@@ -19,9 +19,10 @@ public class Story {
     public void defaultSetup(){
 
         player.setHealth(10);
-        ui.getHpLabel().setText("" + player.getHealth());
+        ui.getHpNumberLabel().setText("" + player.getHealth());
 
         player.setWeapon(new Knife());
+        ui.getWeaponLabelName().setText(player.getWeapon().getName());
     }
 
 }
