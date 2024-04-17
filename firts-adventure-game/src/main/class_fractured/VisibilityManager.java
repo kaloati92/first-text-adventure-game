@@ -20,4 +20,14 @@ public class VisibilityManager {
         ui.getChoiceButtonPanel().setVisible(false);
         ui.getPlayerPanel().setVisible(false);
     }
+    public void titleToTown(){
+        //Hide the title screen
+        ui.getTitleNamePanel().setVisible(false);
+        ui.getStartButtonPanel().setVisible(false);
+
+        //Show game screen
+        ui.getMainTextPanel().setVisible(true);
+        ui.getChoiceButtonPanel().setVisible(true);
+        ui.getPlayerPanel().setVisible(true);
+    }
 }

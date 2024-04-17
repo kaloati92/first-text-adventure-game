@@ -1,5 +1,6 @@
 package class_fractured.domain;
 
+import class_fractured.Weapon.Weapon;
 import lombok.Data;
 
 @Data

@@ -11,6 +11,7 @@ public class Game {
     private ChoiceHandler choiceHandler = new ChoiceHandler();
     private UI ui = new UI();
     VisibilityManager visibilityManager = new VisibilityManager(ui);
+    Story story = new Story(this, ui, visibilityManager);
 
     public static void main(String[] args) {
         new Game();
@@ -18,6 +19,7 @@ public class Game {
 
     public Game() {
         ui.createUI(choiceHandler);
+        visibilityManager.showTitleScreen();
     }
 
     public class ChoiceHandler implements ActionListener {
@@ -27,6 +29,7 @@ public class Game {
 
             switch (yourChoice) {
                 case "start":
+                    visibilityManager.titleToTown();
                     break;
                 case "c1":
                     break;
