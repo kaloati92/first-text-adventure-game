@@ -10,6 +10,8 @@ public class Game {
 
     private ChoiceHandler choiceHandler = new ChoiceHandler();
     private UI ui = new UI();
+    VisibilityManager visibilityManager = new VisibilityManager(ui);
+
     public static void main(String[] args) {
         new Game();
     }
@@ -18,10 +20,23 @@ public class Game {
         ui.createUI(choiceHandler);
     }
 
-    public class ChoiceHandler implements ActionListener{
-        public void actionPerformed(ActionEvent event){
+    public class ChoiceHandler implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
 
             String yourChoice = event.getActionCommand();
+
+            switch (yourChoice) {
+                case "start":
+                    break;
+                case "c1":
+                    break;
+                case "c2":
+                    break;
+                case "c3":
+                    break;
+                case "c4":
+                    break;
+            }
         }
     }
 }
