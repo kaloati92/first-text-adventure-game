@@ -99,7 +99,7 @@ public class UI {
         choice2.setForeground(Color.white);
         choice2.setFont(normalFont);
         choice2.setFocusPainted(false);
-        choice1.addActionListener(choiceHandler);
+        choice2.addActionListener(choiceHandler);
         choice2.setActionCommand("c2");
         choiceButtonPanel.add(choice2);
 
@@ -108,7 +108,7 @@ public class UI {
         choice3.setForeground(Color.white);
         choice3.setFont(normalFont);
         choice3.setFocusPainted(false);
-        choice1.addActionListener(choiceHandler);
+        choice3.addActionListener(choiceHandler);
         choice3.setActionCommand("c3");
         choiceButtonPanel.add(choice3);
 
@@ -117,7 +117,7 @@ public class UI {
         choice4.setForeground(Color.white);
         choice4.setFont(normalFont);
         choice4.setFocusPainted(false);
-        choice1.addActionListener(choiceHandler);
+        choice4.addActionListener(choiceHandler);
         choice4.setActionCommand("c4");
         choiceButtonPanel.add(choice4);
 
