@@ -1,6 +1,7 @@
 package class_fractured;
 
 import class_fractured.Weapon.impl.Knife;
+import class_fractured.Weapon.impl.LongSword;
 import class_fractured.domain.Player;
 import lombok.Data;
 
@@ -40,6 +41,15 @@ public class Story {
                 break;
             case "crossRoad":
                 crossRoad();
+                break;
+            case "north":
+                north();
+                break;
+            case "east":
+                east();
+                break;
+            case "west":
+                west();
                 break;
         }
     }
@@ -95,16 +105,103 @@ public class Story {
     }
 
     public void crossRoad() {
-        ui.getMainTextArea().setText("");
+        ui.getMainTextArea().setText("you re at a crossroad." +
+                "\nIf you go south, you will go back to the town.");
 
-        ui.getChoice1().setText(">");
+        ui.getChoice1().setText("Go North");
+        ui.getChoice2().setText("Go East");
+        ui.getChoice3().setText("Go South");
+        ui.getChoice4().setText("Go West");
+
+        game.setNextPosition1("north");
+        game.setNextPosition2("east");
+        game.setNextPosition3("townGate");
+        game.setNextPosition4("west");
+    }
+
+    public void north() {
+        ui.getMainTextArea().setText("There is a river." +
+                "\nYou drink the water and rest at the riverside." +
+                "\n\n(Your HP is recovered by 2)");
+
+        player.setHealth(player.getHealth() + 2);
+        ui.getHpNumberLabel().setText("" + player.getHealth());
+
+        ui.getChoice1().setText("Go South");
         ui.getChoice2().setText("");
         ui.getChoice3().setText("");
         ui.getChoice4().setText("");
 
-        game.setNextPosition1("");
+        game.setNextPosition1("crossRoad");
         game.setNextPosition2("");
         game.setNextPosition3("");
         game.setNextPosition4("");
+    }
+
+    public void east() {
+        ui.getMainTextArea().setText("You walk into a forest and found a Long Sword." +
+                "\n\n(You obtained a Long Sword)");
+
+        player.setWeapon(new LongSword());
+        ui.getWeaponLabelName().setText(player.getWeapon().getName());
+
+        ui.getChoice1().setText("Go West");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("crossRoad");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
+
+    public void west() {
+        ui.getMainTextArea().setText("You encounter a goblin!");
+
+        ui.getChoice1().setText("Fight!");
+        ui.getChoice2().setText("Run!");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("crossRoad");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
+
+    public void fight() {
+//        ui.getMainTextArea().setText("MonsterHp " + monsterHp +
+//                "\n\nWhat do you do?");
+
+        ui.getChoice1().setText("Fight!");
+        ui.getChoice2().setText("Run!");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("crossRoad");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
+
+    public void playerAttack() {
+
+    }
+
+    public void monsterAttack() {
+
+    }
+
+    public void win() {
+
+    }
+
+    public void lose() {
+
+    }
+
+    public void ending() {
+
     }
 }
