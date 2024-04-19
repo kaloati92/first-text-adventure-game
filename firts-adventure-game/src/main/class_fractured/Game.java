@@ -13,6 +13,11 @@ public class Game {
     VisibilityManager visibilityManager = new VisibilityManager(ui);
     Story story = new Story(this, ui, visibilityManager);
 
+    private String nextPosition1;
+    private String nextPosition2;
+    private String nextPosition3;
+    private String nextPosition4;
+
     public static void main(String[] args) {
         new Game();
     }
@@ -31,14 +36,15 @@ public class Game {
             switch (yourChoice) {
                 case "start":
                     visibilityManager.titleToTown();
+                    story.townGate();
                     break;
-                case "c1":
+                case "c1": story.selectPosition(nextPosition1);
                     break;
-                case "c2":
+                case "c2": story.selectPosition(nextPosition2);
                     break;
-                case "c3":
+                case "c3": story.selectPosition(nextPosition3);
                     break;
-                case "c4":
+                case "c4": story.selectPosition(nextPosition4);
                     break;
             }
         }

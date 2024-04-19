@@ -10,13 +10,15 @@ public class Story {
     private UI ui;
     private VisibilityManager visibilityManager;
     private Player player = new Player();
-    public Story(Game game, UI ui, VisibilityManager visibilityManager){
+
+    public Story(Game game, UI ui, VisibilityManager visibilityManager) {
 
         this.game = game;
         this.ui = ui;
         this.visibilityManager = visibilityManager;
     }
-    public void defaultSetup(){
+
+    public void defaultSetup() {
 
         player.setHealth(10);
         ui.getHpNumberLabel().setText("" + player.getHealth());
@@ -25,4 +27,84 @@ public class Story {
         ui.getWeaponLabelName().setText(player.getWeapon().getName());
     }
 
+    public void selectPosition(String nextPosition) {
+        switch (nextPosition) {
+            case "townGate":
+                townGate();
+                break;
+            case "talkGuard":
+                talkGuard();
+                break;
+            case "attackGuard":
+                attackGuard();
+                break;
+            case "crossRoad":
+                crossRoad();
+                break;
+        }
+    }
+
+    public void townGate() {
+        ui.getMainTextArea().setText("You are at the gate of the town. " +
+                "\nA guard standing in front of you. \n\nWhat do you do?");
+
+        ui.getChoice1().setText("Talk to the guard.");
+        ui.getChoice2().setText("Attack the guard.");
+        ui.getChoice3().setText("Leave.");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("talkGuard");
+        game.setNextPosition2("attackGuard");
+        game.setNextPosition3("crossRoad");
+        game.setNextPosition4("");
+    }
+
+    public void talkGuard() {
+        ui.getMainTextArea().setText("Guard: Hello stranger. " +
+                "I have never seen your face. " +
+                "I'm sorry but we cannot let a stranger enter our town.");
+
+        ui.getChoice1().setText(">");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("townGate");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
+
+    public void attackGuard() {
+        ui.getMainTextArea().setText("Guard: Hey don't be stupid!" +
+                "\n\nThe guard fought back and hit you hard" +
+                "\n(You receive 3 damage)");
+
+        player.setHealth(player.getHealth() - 3);
+        ui.getHpNumberLabel().setText("" + player.getHealth());
+
+        ui.getChoice1().setText(">");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("townGate");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
+
+    public void crossRoad() {
+        ui.getMainTextArea().setText("");
+
+        ui.getChoice1().setText(">");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
 }
