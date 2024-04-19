@@ -1,4 +1,4 @@
-package class_fractured.Weapon;
+package class_fractured.weapon;
 
 public interface Weapon {
     public String getName();

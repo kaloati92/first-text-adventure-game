@@ -1,8 +1,10 @@
 package class_fractured;
 
-import class_fractured.Weapon.impl.Knife;
-import class_fractured.Weapon.impl.LongSword;
+import class_fractured.domain.Enemy;
 import class_fractured.domain.Player;
+import class_fractured.monster.impl.Goblin;
+import class_fractured.weapon.impl.Knife;
+import class_fractured.weapon.impl.LongSword;
 import lombok.Data;
 
 @Data
@@ -11,6 +13,7 @@ public class Story {
     private UI ui;
     private VisibilityManager visibilityManager;
     private Player player = new Player();
+    private Enemy enemy;
 
     public Story(Game game, UI ui, VisibilityManager visibilityManager) {
 
@@ -157,7 +160,10 @@ public class Story {
     }
 
     public void west() {
-        ui.getMainTextArea().setText("You encounter a goblin!");
+        enemy.setMonster(new Goblin());
+        ui.getMainTextArea().setText("You encounter a "
+                + enemy.getMonster().getName()
+                + ".");
 
         ui.getChoice1().setText("Fight!");
         ui.getChoice2().setText("Run!");

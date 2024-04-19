@@ -1,6 +1,6 @@
-package class_fractured.Weapon.impl;
+package class_fractured.weapon.impl;
 
-import class_fractured.Weapon.Weapon;
+import class_fractured.weapon.Weapon;
 import lombok.Data;
 
 @Data
