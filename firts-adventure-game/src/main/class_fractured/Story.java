@@ -55,6 +55,24 @@ public class Story {
             case "west":
                 west();
                 break;
+            case "fight":
+                fight();
+                break;
+            case "playerAttack":
+                playerAttack();
+                break;
+            case "monsterAttack":
+                monsterAttack();
+                break;
+            case "win":
+                win();
+                break;
+            case "lose":
+                lose();
+                break;
+            case "toTitle":
+                toTitle();
+                break;
         }
     }
 
