@@ -1,7 +1,7 @@
 package refactor_classes_ver_1.domain;
 
-import class_fractured.monster.Monster;
 import lombok.Data;
+import refactor_classes_ver_1.monster.Monster;
 
 @Data
 public class Enemy {
