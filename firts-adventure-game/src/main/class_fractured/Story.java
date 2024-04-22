@@ -14,6 +14,7 @@ public class Story {
     private VisibilityManager visibilityManager;
     private Player player = new Player();
     private Enemy enemy;
+    int silverRing;
 
     public Story(Game game, UI ui, VisibilityManager visibilityManager) {
 
@@ -73,6 +74,8 @@ public class Story {
     }
 
     public void talkGuard() {
+
+        if(silverRing < 1){
         ui.getMainTextArea().setText("Guard: Hello stranger. " +
                 "I have never seen your face. " +
                 "I'm sorry but we cannot let a stranger enter our town.");
@@ -85,7 +88,10 @@ public class Story {
         game.setNextPosition1("townGate");
         game.setNextPosition2("");
         game.setNextPosition3("");
-        game.setNextPosition4("");
+        game.setNextPosition4("");}
+        else {
+            ending();
+        }
     }
 
     public void attackGuard() {
@@ -170,18 +176,96 @@ public class Story {
         ui.getChoice3().setText("");
         ui.getChoice4().setText("");
 
-        game.setNextPosition1("crossRoad");
-        game.setNextPosition2("");
+        game.setNextPosition1("fight");
+        game.setNextPosition2("crossroad");
         game.setNextPosition3("");
         game.setNextPosition4("");
     }
 
     public void fight() {
-//        ui.getMainTextArea().setText("MonsterHp " + monsterHp +
-//                "\n\nWhat do you do?");
+        ui.getMainTextArea().setText(enemy.getMonster().getName() +
+                ": " + enemy.getMonster().getHp() + "\n\nWhat do you do?");
 
         ui.getChoice1().setText("Fight!");
         ui.getChoice2().setText("Run!");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("playerAttack");
+        game.setNextPosition2("crossroad");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
+    }
+
+    public void playerAttack() {
+        int playerDamage = new java.util.Random().nextInt(
+                player.getWeapon().getDamage());
+
+        ui.getMainTextArea().setText(
+                "You attacked the " + enemy.getMonster().getName() +
+                        " and gave " + playerDamage + " damage!");
+
+        enemy.getMonster().setHp(enemy.getMonster().getHp() - playerDamage);
+
+        ui.getChoice1().setText(">");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        if (enemy.getMonster().getHp() > 0) {
+            game.setNextPosition1("monsterAttack");
+            game.setNextPosition2("");
+            game.setNextPosition3("");
+            game.setNextPosition4("");
+        } else {
+            game.setNextPosition1("win");
+            game.setNextPosition2("");
+            game.setNextPosition3("");
+            game.setNextPosition4("");
+        }
+    }
+
+
+    public void monsterAttack() {
+        int monsterDamage = new java.util.Random().nextInt(
+                enemy.getMonster().getAttack());
+
+        ui.getMainTextArea().setText(
+                "The " + enemy.getMonster().getName() + " attacked you and gave "
+                        + monsterDamage + " damage!");
+
+        player.setHealth(player.getHealth() - monsterDamage);
+        ui.getHpNumberLabel().setText("" + player.getHealth());
+
+        ui.getChoice1().setText(">");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        if (player.getHealth() > 0) {
+            game.setNextPosition1("fight");
+            game.setNextPosition2("");
+            game.setNextPosition3("");
+            game.setNextPosition4("");
+        } else {
+            game.setNextPosition1("lose");
+            game.setNextPosition2("");
+            game.setNextPosition3("");
+            game.setNextPosition4("");
+        }
+    }
+
+    public void win() {
+
+        ui.getMainTextArea().setText("You killed a" +
+                enemy.getMonster().getName() + "." +
+                "\nThe monster dropped a ring!" +
+                "\n\n(You obtained a Silver Ring)");
+
+        silverRing++;
+
+        ui.getChoice1().setText("Go east");
+        ui.getChoice2().setText("");
         ui.getChoice3().setText("");
         ui.getChoice4().setText("");
 
@@ -191,23 +275,31 @@ public class Story {
         game.setNextPosition4("");
     }
 
-    public void playerAttack() {
-
-    }
-
-    public void monsterAttack() {
-
-    }
-
-    public void win() {
-
-    }
-
     public void lose() {
+        ui.getMainTextArea().setText("You are dead!\n\n<Game Over>");
 
+        ui.getChoice1().setText("To the title screen");
+        ui.getChoice2().setText("");
+        ui.getChoice3().setText("");
+        ui.getChoice4().setText("");
+
+        game.setNextPosition1("toTitle");
+        game.setNextPosition2("");
+        game.setNextPosition3("");
+        game.setNextPosition4("");
     }
 
     public void ending() {
+        ui.getMainTextArea().setText("Guard: Oh you killed that " +
+                enemy.getMonster().getName() + "!" +
+                "\\nThank you.\\nWelcome to the town\\n\\n<THE END>");
 
+        ui.getChoice1().setVisible(false);
+        ui.getChoice2().setVisible(false);
+        ui.getChoice3().setVisible(false);
+        ui.getChoice4().setVisible(false);
+    }
+    public void toTitle(){
+        defaultSetup();
     }
 }
