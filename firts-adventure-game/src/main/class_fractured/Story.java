@@ -3,6 +3,7 @@ package class_fractured;
 import class_fractured.domain.Enemy;
 import class_fractured.domain.Player;
 import class_fractured.monster.impl.Goblin;
+import class_fractured.monster.impl.Orc;
 import class_fractured.weapon.impl.Knife;
 import class_fractured.weapon.impl.LongSword;
 import lombok.Data;
@@ -13,7 +14,7 @@ public class Story {
     private UI ui;
     private VisibilityManager visibilityManager;
     private Player player = new Player();
-    private Enemy enemy;
+    private Enemy enemy = new Enemy();
     int silverRing;
 
     public Story(Game game, UI ui, VisibilityManager visibilityManager) {
@@ -93,21 +94,21 @@ public class Story {
 
     public void talkGuard() {
 
-        if(silverRing < 1){
-        ui.getMainTextArea().setText("Guard: Hello stranger. " +
-                "I have never seen your face. " +
-                "I'm sorry but we cannot let a stranger enter our town.");
+        if (silverRing < 1) {
+            ui.getMainTextArea().setText("Guard: Hello stranger. " +
+                    "I have never seen your face. " +
+                    "I'm sorry but we cannot let a stranger enter our town.");
 
-        ui.getChoice1().setText(">");
-        ui.getChoice2().setText("");
-        ui.getChoice3().setText("");
-        ui.getChoice4().setText("");
+            ui.getChoice1().setText(">");
+            ui.getChoice2().setText("");
+            ui.getChoice3().setText("");
+            ui.getChoice4().setText("");
 
-        game.setNextPosition1("townGate");
-        game.setNextPosition2("");
-        game.setNextPosition3("");
-        game.setNextPosition4("");}
-        else {
+            game.setNextPosition1("townGate");
+            game.setNextPosition2("");
+            game.setNextPosition3("");
+            game.setNextPosition4("");
+        } else {
             ending();
         }
     }
@@ -120,15 +121,19 @@ public class Story {
         player.setHealth(player.getHealth() - 3);
         ui.getHpNumberLabel().setText("" + player.getHealth());
 
-        ui.getChoice1().setText(">");
-        ui.getChoice2().setText("");
-        ui.getChoice3().setText("");
-        ui.getChoice4().setText("");
+        if (player.getHealth() > 0) {
+            ui.getChoice1().setText(">");
+            ui.getChoice2().setText("");
+            ui.getChoice3().setText("");
+            ui.getChoice4().setText("");
 
-        game.setNextPosition1("townGate");
-        game.setNextPosition2("");
-        game.setNextPosition3("");
-        game.setNextPosition4("");
+            game.setNextPosition1("townGate");
+            game.setNextPosition2("");
+            game.setNextPosition3("");
+            game.setNextPosition4("");
+        } else {
+           lose();
+        }
     }
 
     public void crossRoad() {
@@ -184,7 +189,12 @@ public class Story {
     }
 
     public void west() {
-        enemy.setMonster(new Goblin());
+        int i = new java.util.Random().nextInt(100) + 1;
+        if (i <= 50) {
+            enemy.setMonster(new Goblin());
+        } else {
+            enemy.setMonster(new Orc());
+        }
         ui.getMainTextArea().setText("You encounter a "
                 + enemy.getMonster().getName()
                 + ".");
@@ -195,7 +205,7 @@ public class Story {
         ui.getChoice4().setText("");
 
         game.setNextPosition1("fight");
-        game.setNextPosition2("crossroad");
+        game.setNextPosition2("crossRoad");
         game.setNextPosition3("");
         game.setNextPosition4("");
     }
@@ -210,7 +220,7 @@ public class Story {
         ui.getChoice4().setText("");
 
         game.setNextPosition1("playerAttack");
-        game.setNextPosition2("crossroad");
+        game.setNextPosition2("crossRoad");
         game.setNextPosition3("");
         game.setNextPosition4("");
     }
@@ -310,14 +320,19 @@ public class Story {
     public void ending() {
         ui.getMainTextArea().setText("Guard: Oh you killed that " +
                 enemy.getMonster().getName() + "!" +
-                "\\nThank you.\\nWelcome to the town\\n\\n<THE END>");
+                "\nThank you.\nWelcome to the town\n\n<THE END>");
 
-        ui.getChoice1().setVisible(false);
+        ui.getChoice1().setText("To the title screen");
         ui.getChoice2().setVisible(false);
         ui.getChoice3().setVisible(false);
         ui.getChoice4().setVisible(false);
+
+        game.setNextPosition1("toTitle");
     }
-    public void toTitle(){
+
+    public void toTitle() {
         defaultSetup();
+        game.close();
+        game = new Game();
     }
 }

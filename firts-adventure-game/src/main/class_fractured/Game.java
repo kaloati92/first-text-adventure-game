@@ -10,7 +10,7 @@ public class Game {
 
     private ChoiceHandler choiceHandler = new ChoiceHandler();
     private UI ui = new UI();
-    VisibilityManager visibilityManager = new VisibilityManager(ui);
+    private VisibilityManager visibilityManager = new VisibilityManager(ui);
     Story story = new Story(this, ui, visibilityManager);
 
     private String nextPosition1;
@@ -26,6 +26,9 @@ public class Game {
         ui.createUI(choiceHandler);
         story.defaultSetup();
         visibilityManager.showTitleScreen();
+    }
+    public void close(){
+        ui.getWindow().dispose();
     }
 
     public class ChoiceHandler implements ActionListener {
